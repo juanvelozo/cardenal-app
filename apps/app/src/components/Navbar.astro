@@ -1,0 +1,52 @@
+---
+const LANDING_URL = import.meta.env.PUBLIC_LANDING_URL || 'http://localhost:4321';
+---
+
+<header class="sticky top-0 z-50 bg-cream/80 backdrop-blur-sm border-b border-paper-dark/50">
+  <nav class="px-4 sm:px-6 h-14 flex items-center gap-4">
+    <!-- Logo -->
+    <a href="/" class="font-display text-2xl font-bold text-cardinal shrink-0">
+      Cardenal
+    </a>
+
+    <!-- Search (centered, takes available space) -->
+    <div class="flex-1 flex justify-center">
+      <div class="relative w-full max-w-md">
+        <svg
+          class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-ink-muted"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+          />
+        </svg>
+        <input
+          type="text"
+          placeholder="Buscar canciones, artistas..."
+          class="w-full pl-10 pr-4 py-2 text-sm bg-paper/60 border border-paper-dark/40 rounded-lg placeholder:text-ink-muted/60 focus:outline-none focus:border-cardinal/40 focus:bg-cream transition-colors"
+        />
+      </div>
+    </div>
+
+    <!-- Nav links -->
+    <div class="flex items-center gap-2 sm:gap-4 shrink-0">
+      <a href="/explore" class="text-sm text-ink-light hover:text-ink transition-colors hidden sm:block">
+        Explorar
+      </a>
+      <a href="/tools/tuner" class="text-sm text-ink-light hover:text-ink transition-colors hidden sm:block">
+        Herramientas
+      </a>
+      <a
+        href="/login"
+        class="text-sm font-medium px-4 py-1.5 bg-cardinal text-cream rounded-lg hover:bg-cardinal-dark transition-colors"
+      >
+        Entrar
+      </a>
+    </div>
+  </nav>
+</header>

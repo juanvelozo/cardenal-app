@@ -1,0 +1,59 @@
+---
+import '../styles/global.css';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+  ogImage?: string;
+  noindex?: boolean;
+  hideNav?: boolean;
+  hideFooter?: boolean;
+}
+
+const {
+  title,
+  description = 'Cancionero digital y herramientas de practica musical',
+  ogImage,
+  noindex = false,
+  hideNav = false,
+  hideFooter = false,
+} = Astro.props;
+
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="canonical" href={canonicalUrl.href} />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:site_name" content="Cardenal" />
+    <meta property="og:locale" content="es_AR" />
+    {ogImage && <meta property="og:image" content={ogImage} />}
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    {ogImage && <meta name="twitter:image" content={ogImage} />}
+
+    <title>{title}</title>
+  </head>
+  <body class="min-h-screen bg-cream text-ink font-body antialiased flex flex-col">
+    {!hideNav && <Navbar />}
+    <main class="flex-1 w-full max-w-6xl mx-auto px-4 sm:px-6 py-12">
+      <slot />
+    </main>
+    {!hideFooter && <Footer />}
+  </body>
+</html>

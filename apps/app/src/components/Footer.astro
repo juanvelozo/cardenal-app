@@ -1,0 +1,16 @@
+---
+const LANDING_URL = import.meta.env.PUBLIC_LANDING_URL || 'http://localhost:4321';
+---
+
+<footer class="border-t border-paper-dark/30 py-6 px-4 sm:px-6">
+  <div class="max-w-6xl mx-auto flex items-center justify-between text-xs text-ink-muted">
+    <a href={LANDING_URL} class="font-display text-lg font-bold text-cardinal hover:text-cardinal-dark transition-colors">
+      Cardenal
+    </a>
+    <div class="flex items-center gap-4">
+      <a href="/tools/tuner" class="hover:text-ink transition-colors">Afinador</a>
+      <a href="/tools/metronome" class="hover:text-ink transition-colors">Metronomo</a>
+      <a href="/tools/chords" class="hover:text-ink transition-colors">Acordes</a>
+    </div>
+  </div>
+</footer>
