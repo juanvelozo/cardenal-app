@@ -7,3 +7,7 @@ user_name: Juan
 communication_language: Spanish
 document_output_language: Spanish
 output_folder: "{project-root}/_bmad-output"
+
+# Project rules
+rules:
+  - Hacer un commit por cada funcionalidad. Si hay varias funcionalidades dentro de un mismo archivo, hacer varios commits separados, uno por funcionalidad.
