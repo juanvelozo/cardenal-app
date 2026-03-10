@@ -17,6 +17,11 @@ interface BlockItemProps {
   onRemove: () => void;
   onAddAfter: () => void;
   canRemove: boolean;
+  isDragOver: boolean;
+  onDragStart: () => void;
+  onDragOver: (e: React.DragEvent) => void;
+  onDragLeave: () => void;
+  onDrop: () => void;
 }
 
 export function BlockItem({
@@ -30,17 +35,33 @@ export function BlockItem({
   onRemove,
   onAddAfter,
   canRemove,
+  isDragOver,
+  onDragStart,
+  onDragOver,
+  onDragLeave,
+  onDrop,
 }: BlockItemProps) {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
     <div
-      className="group relative"
+      className={`group relative ${isDragOver ? 'border-t-2 border-cardinal' : ''}`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
+      onDragOver={onDragOver}
+      onDragLeave={onDragLeave}
+      onDrop={onDrop}
     >
       {/* Block header */}
       <div className="flex items-center gap-2 mb-1">
+        <span
+          draggable
+          onDragStart={onDragStart}
+          className="cursor-grab active:cursor-grabbing text-ink-muted/40 hover:text-ink-muted select-none"
+          title="Arrastrar para reordenar"
+        >
+          ⠿
+        </span>
         <BlockTypeSelector current={block.type} onChange={onTypeChange} />
         {block.label && (
           <span className="text-xs text-ink-muted">{block.label}</span>
