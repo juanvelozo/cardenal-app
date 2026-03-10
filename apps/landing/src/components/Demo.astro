@@ -1,0 +1,130 @@
+---
+const songs = [
+  `[Em]Estaba el diablo mal pa[G]rado
+[D]en la esquina de mi ba[A]rrio
+[Em]ahi donde dobla el vi[G]ento
+[D]y se cruzan los a[A]tajos`,
+  `[C]Una tipa rapaz
+[Am](como te gusta a vos)
+[Dm]esa tipa vino a conso[G]larte
+[C]Un poco de amor frances`,
+  `[D]Nunca quise tanto a nadie como [Bm]vos
+[C#m]por eso es que empiezo a du[F#m]dar
+[Bm]si seremos hermanos que nos sepa[E]raron
+[A]y nosotros sin saberlo nos volvimos a jun[A7]tar`,
+];
+const placeholder = songs[Math.floor(Math.random() * songs.length)];
+---
+
+<section id="demo" class="py-24 px-6 bg-paper/40">
+  <div class="max-w-5xl mx-auto">
+    <h2 class="font-display text-5xl sm:text-6xl font-bold text-center text-ink mb-4">
+      Probalo ahora
+    </h2>
+    <p class="text-center text-ink-muted mb-12 max-w-lg mx-auto">
+      Escribi acordes entre corchetes y mira como se renderizan en tiempo real.
+    </p>
+
+    <div class="max-w-3xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
+      <!-- Editor -->
+      <div>
+        <p class="text-xs text-ink-muted uppercase tracking-wider mb-2">Escribi aca</p>
+        <textarea
+          id="demo-input"
+          class="w-full h-48 px-4 py-3 font-mono text-sm bg-cream border border-paper-dark/30 rounded-xl outline-none focus:border-cardinal/40 resize-none"
+          spellcheck="false"
+        >{placeholder}</textarea>
+      </div>
+
+      <!-- Preview -->
+      <div>
+        <p class="text-xs text-ink-muted uppercase tracking-wider mb-2">Resultado</p>
+        <div
+          id="demo-output"
+          class="w-full h-48 px-4 py-3 bg-cream border border-paper-dark/30 rounded-xl overflow-auto"
+        ></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const input = document.getElementById('demo-input') as HTMLTextAreaElement;
+  const output = document.getElementById('demo-output')!;
+
+  function parseLine(raw: string): { text: string; chords: { chord: string; position: number }[] } {
+    const chords: { chord: string; position: number }[] = [];
+    let text = '';
+    let i = 0;
+    while (i < raw.length) {
+      if (raw[i] === '[') {
+        const close = raw.indexOf(']', i);
+        if (close !== -1) {
+          chords.push({ chord: raw.slice(i + 1, close), position: text.length });
+          i = close + 1;
+          continue;
+        }
+      }
+      text += raw[i];
+      i++;
+    }
+    return { text, chords };
+  }
+
+  function renderLine(raw: string): HTMLElement {
+    const { text, chords } = parseLine(raw);
+    const container = document.createElement('div');
+    container.className = 'relative pt-5 font-mono text-sm leading-relaxed whitespace-pre';
+
+    if (chords.length === 0) {
+      container.textContent = text || '\u00A0';
+      container.className = 'font-mono text-sm leading-relaxed whitespace-pre';
+      return container;
+    }
+
+    let lastPos = 0;
+    for (const { chord, position } of chords) {
+      // Text before this chord
+      if (position > lastPos) {
+        container.appendChild(document.createTextNode(text.slice(lastPos, position)));
+      }
+
+      // Chord + syllable span
+      const wrapper = document.createElement('span');
+      wrapper.className = 'relative inline-block';
+
+      const chordEl = document.createElement('span');
+      chordEl.className = 'absolute -top-5 left-0 text-cardinal font-bold text-xs whitespace-nowrap';
+      chordEl.textContent = chord;
+
+      wrapper.appendChild(chordEl);
+
+      // Find next chord position or end of text
+      const nextChordIdx = chords.indexOf(
+        chords.find(c => c.position > position)!
+      );
+      const endPos = nextChordIdx !== -1 ? chords[nextChordIdx].position : text.length;
+      wrapper.appendChild(document.createTextNode(text.slice(position, endPos)));
+
+      container.appendChild(wrapper);
+      lastPos = endPos;
+    }
+
+    if (lastPos < text.length) {
+      container.appendChild(document.createTextNode(text.slice(lastPos)));
+    }
+
+    return container;
+  }
+
+  function render() {
+    output.innerHTML = '';
+    const lines = input.value.split('\n');
+    for (const line of lines) {
+      output.appendChild(renderLine(line));
+    }
+  }
+
+  input.addEventListener('input', render);
+  render();
+</script>
