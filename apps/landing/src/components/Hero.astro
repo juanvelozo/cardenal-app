@@ -1,0 +1,58 @@
+---
+const APP_URL = 'https://app.cardenal.com';
+---
+
+<section class="relative min-h-screen flex items-center justify-center px-6 pt-20">
+  <!-- Decorative hand-drawn lines -->
+  <div class="absolute inset-0 overflow-hidden pointer-events-none opacity-[0.03]">
+    <svg class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+      <line x1="10%" y1="0" x2="10%" y2="100%" stroke="currentColor" stroke-width="1" stroke-dasharray="8 12" />
+      <line x1="90%" y1="0" x2="90%" y2="100%" stroke="currentColor" stroke-width="1" stroke-dasharray="8 12" />
+    </svg>
+  </div>
+
+  <div class="max-w-2xl mx-auto text-center">
+    <p class="text-ink-muted text-sm tracking-widest uppercase mb-6">
+      Cancionero digital
+    </p>
+
+    <h1 class="font-display text-7xl sm:text-8xl md:text-9xl font-bold text-cardinal mb-6 leading-none">
+      Cardenal
+    </h1>
+
+    <p class="text-xl sm:text-2xl text-ink-light font-light leading-relaxed mb-4 max-w-lg mx-auto">
+      Tu cancionero digital con acordes, letras y herramientas de practica musical.
+    </p>
+
+    <p class="text-base text-ink-muted mb-12 max-w-md mx-auto">
+      Software libre y gratuito. Para siempre.
+    </p>
+
+    <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+      <a
+        href={APP_URL}
+        class="px-8 py-3 bg-cardinal text-cream font-medium rounded-lg hover:bg-cardinal-dark transition-colors text-lg"
+      >
+        Empezar a tocar
+      </a>
+      <a
+        href="#herramientas"
+        class="px-8 py-3 border border-paper-dark text-ink-light font-medium rounded-lg hover:border-ink-muted hover:text-ink transition-colors text-lg"
+      >
+        Explorar herramientas
+      </a>
+    </div>
+
+    <!-- Chord example -->
+    <div class="mt-20 font-mono text-sm text-ink-muted/60 select-none">
+      <div class="inline-block text-left">
+        <span class="text-gold ml-[3.6ch]">Am</span>
+        <span class="text-gold ml-[5.5ch]">F</span>
+        <span class="text-gold ml-[5ch]">C</span>
+        <span class="text-gold ml-[5.5ch]">G</span>
+        <br />
+        <span>Hoy puede ser un gran dia</span>
+      </div>
+    </div>
+  </div>
+</section>

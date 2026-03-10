@@ -1,0 +1,23 @@
+---
+const year = new Date().getFullYear();
+const GITHUB_URL = 'https://github.com/cardenal-app/cardenal';
+---
+
+<footer class="py-12 px-6 border-t border-paper-dark/30">
+  <div class="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+    <div class="flex items-center gap-2">
+      <span class="font-display text-xl font-bold text-cardinal">Cardenal</span>
+      <span class="text-ink-muted text-sm">&middot; Software libre</span>
+    </div>
+
+    <div class="flex items-center gap-6 text-sm text-ink-muted">
+      <a href={GITHUB_URL} class="hover:text-ink transition-colors">GitHub</a>
+      <a href="/privacidad" class="hover:text-ink transition-colors">Privacidad</a>
+      <a href="/contacto" class="hover:text-ink transition-colors">Contacto</a>
+    </div>
+
+    <p class="text-xs text-ink-muted">
+      &copy; {year} Cardenal
+    </p>
+  </div>
+</footer>

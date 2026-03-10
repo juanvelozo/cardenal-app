@@ -1,0 +1,21 @@
+{
+  "name": "@cardenal/landing",
+  "type": "module",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev --port 4321",
+    "build": "astro build",
+    "preview": "astro preview",
+    "typecheck": "astro check"
+  },
+  "dependencies": {
+    "astro": "^5.17.1",
+    "@tailwindcss/vite": "^4.2.1",
+    "tailwindcss": "^4.2.1"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.6",
+    "typescript": "^5.8.0"
+  }
+}

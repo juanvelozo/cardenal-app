@@ -1,0 +1,34 @@
+---
+const GITHUB_URL = 'https://github.com/cardenal-app/cardenal';
+const APP_URL = 'https://app.cardenal.com';
+---
+
+<section id="open-source" class="py-24 px-6">
+  <div class="max-w-3xl mx-auto text-center">
+    <h2 class="font-display text-5xl sm:text-6xl font-bold text-ink mb-6">
+      Software libre
+    </h2>
+    <p class="text-lg text-ink-light leading-relaxed mb-4 max-w-xl mx-auto">
+      Cardenal es open source y gratuito. Sin publicidad, sin suscripciones, sin letra chica.
+      Creemos que las herramientas para musicos no deberian tener precio.
+    </p>
+    <p class="text-base text-ink-muted mb-12 max-w-md mx-auto">
+      Si Cardenal te sirve, podes apoyar el proyecto con una donacion voluntaria.
+    </p>
+
+    <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+      <a
+        href={APP_URL}
+        class="px-8 py-3 bg-cardinal text-cream font-medium rounded-lg hover:bg-cardinal-dark transition-colors"
+      >
+        Empezar a usar Cardenal
+      </a>
+      <a
+        href={GITHUB_URL}
+        class="px-8 py-3 border border-paper-dark text-ink-light font-medium rounded-lg hover:border-ink-muted hover:text-ink transition-colors"
+      >
+        Ver en GitHub
+      </a>
+    </div>
+  </div>
+</section>

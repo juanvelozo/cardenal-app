@@ -1,0 +1,55 @@
+---
+const features = [
+  {
+    title: 'Editor de bloques',
+    description: 'Escribi canciones con acordes inline. Sin formularios rigidos, sin alinear lineas. Solo vos y la musica.',
+    icon: '&#9998;',
+  },
+  {
+    title: 'Acordes sobre letras',
+    description: 'Sintaxis simple: escribi Pal[G]abra y el acorde aparece arriba de la silaba. Asi de facil.',
+    icon: '&#9835;',
+  },
+  {
+    title: 'Transposicion instantanea',
+    description: 'Cambia la tonalidad con un click. Todos los acordes se recalculan automaticamente.',
+    icon: '&#8693;',
+  },
+  {
+    title: 'Cancioneros',
+    description: 'Organiza tus canciones en cancioneros. Arma setlists para el vivo con tonalidad y notas por tema.',
+    icon: '&#128218;',
+  },
+  {
+    title: 'Modo lectura',
+    description: 'Pantalla limpia, sin distracciones. Solo la cancion. Para el celular en el atril.',
+    icon: '&#128196;',
+  },
+  {
+    title: 'Funciona offline',
+    description: 'Guarda canciones en tu dispositivo. Toca sin depender de la conexion.',
+    icon: '&#9889;',
+  },
+];
+---
+
+<section id="features" class="py-24 px-6">
+  <div class="max-w-5xl mx-auto">
+    <h2 class="font-display text-5xl sm:text-6xl font-bold text-center text-ink mb-4">
+      Todo lo que necesitas
+    </h2>
+    <p class="text-center text-ink-muted mb-16 max-w-lg mx-auto">
+      Un cancionero pensado por y para musicos. Sin publicidad, sin suscripciones, sin features bloqueadas.
+    </p>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {features.map(({ title, description, icon }) => (
+        <div class="p-6 rounded-xl bg-paper/50 border border-paper-dark/30 hover:border-paper-dark/60 transition-colors">
+          <div class="text-3xl mb-4" set:html={icon} />
+          <h3 class="font-accent text-2xl text-ink mb-2">{title}</h3>
+          <p class="text-ink-light text-sm leading-relaxed">{description}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

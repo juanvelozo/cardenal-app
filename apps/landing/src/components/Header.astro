@@ -1,0 +1,25 @@
+---
+const APP_URL = 'https://app.cardenal.com';
+---
+
+<header class="fixed top-0 w-full z-50 bg-cream/80 backdrop-blur-sm border-b border-paper-dark/50">
+  <nav class="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
+    <a href="/" class="font-display text-3xl font-bold text-cardinal tracking-tight">
+      Cardenal
+    </a>
+    <div class="flex items-center gap-6">
+      <a href="#herramientas" class="text-sm text-ink-light hover:text-ink transition-colors hidden sm:block">
+        Herramientas
+      </a>
+      <a href="#open-source" class="text-sm text-ink-light hover:text-ink transition-colors hidden sm:block">
+        Open Source
+      </a>
+      <a
+        href={APP_URL}
+        class="text-sm font-medium px-4 py-2 bg-cardinal text-cream rounded-lg hover:bg-cardinal-dark transition-colors"
+      >
+        Abrir app
+      </a>
+    </div>
+  </nav>
+</header>
