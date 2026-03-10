@@ -1,21 +1,28 @@
 {
-  "name": "cardenal-app",
-  "type": "module",
+  "name": "cardenal",
+  "private": true,
   "version": "0.0.1",
+  "type": "module",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
   "scripts": {
-    "dev": "astro dev",
-    "build": "astro build",
-    "preview": "astro preview",
-    "astro": "astro"
+    "dev": "turbo dev",
+    "dev:landing": "turbo dev --filter=@cardenal/landing",
+    "dev:app": "turbo dev --filter=@cardenal/app",
+    "build": "turbo build",
+    "lint": "turbo lint",
+    "typecheck": "turbo typecheck",
+    "test": "turbo test",
+    "db:migrate": "npm run db:migrate -w packages/db",
+    "db:generate": "npm run db:generate -w packages/db",
+    "db:studio": "npm run db:studio -w packages/db",
+    "db:push": "npm run db:push -w packages/db"
   },
-  "dependencies": {
-    "@astrojs/react": "^4.4.2",
-    "@tailwindcss/vite": "^4.2.1",
-    "@types/react": "^19.2.14",
-    "@types/react-dom": "^19.2.3",
-    "astro": "^5.17.1",
-    "react": "^19.2.4",
-    "react-dom": "^19.2.4",
-    "tailwindcss": "^4.2.1"
+  "packageManager": "npm@10.9.4",
+  "devDependencies": {
+    "turbo": "^2.5.0",
+    "typescript": "^5.8.0"
   }
 }
