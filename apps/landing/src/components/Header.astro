@@ -7,11 +7,13 @@ const APP_URL = 'https://app.cardenal.com';
     <a href="/" class="font-display text-3xl font-bold text-cardinal tracking-tight">
       Cardenal
     </a>
-    <div class="flex items-center gap-6">
-      <a href="#herramientas" class="text-sm text-ink-light hover:text-ink transition-colors hidden sm:block">
+
+    <!-- Desktop nav -->
+    <div class="hidden sm:flex items-center gap-6">
+      <a href="#herramientas" class="text-sm text-ink-light hover:text-ink transition-colors">
         Herramientas
       </a>
-      <a href="#open-source" class="text-sm text-ink-light hover:text-ink transition-colors hidden sm:block">
+      <a href="#open-source" class="text-sm text-ink-light hover:text-ink transition-colors">
         Open Source
       </a>
       <a
@@ -21,5 +23,65 @@ const APP_URL = 'https://app.cardenal.com';
         Abrir app
       </a>
     </div>
+
+    <!-- Mobile hamburger -->
+    <button
+      id="menu-toggle"
+      class="sm:hidden flex flex-col justify-center gap-1.5 w-8 h-8"
+      aria-label="Abrir menu"
+      aria-expanded="false"
+    >
+      <span class="menu-bar block w-full h-0.5 bg-ink transition-all origin-center"></span>
+      <span class="menu-bar block w-full h-0.5 bg-ink transition-all origin-center"></span>
+      <span class="menu-bar block w-full h-0.5 bg-ink transition-all origin-center"></span>
+    </button>
   </nav>
+
+  <!-- Mobile menu -->
+  <div id="mobile-menu" class="sm:hidden hidden border-t border-paper-dark/30 bg-cream/95 backdrop-blur-sm">
+    <div class="max-w-5xl mx-auto px-6 py-6 flex flex-col gap-4">
+      <a href="#herramientas" class="mobile-link text-base text-ink-light hover:text-ink transition-colors">
+        Herramientas
+      </a>
+      <a href="#open-source" class="mobile-link text-base text-ink-light hover:text-ink transition-colors">
+        Open Source
+      </a>
+      <a
+        href={APP_URL}
+        class="text-center text-sm font-medium px-4 py-2.5 bg-cardinal text-cream rounded-lg hover:bg-cardinal-dark transition-colors"
+      >
+        Abrir app
+      </a>
+    </div>
+  </div>
 </header>
+
+<script>
+  const toggle = document.getElementById('menu-toggle')!;
+  const menu = document.getElementById('mobile-menu')!;
+  const bars = toggle.querySelectorAll('.menu-bar');
+  const links = menu.querySelectorAll('.mobile-link');
+
+  function closeMenu() {
+    menu.classList.add('hidden');
+    toggle.setAttribute('aria-expanded', 'false');
+    bars[0].classList.remove('rotate-45', 'translate-y-[4px]');
+    bars[1].classList.remove('opacity-0');
+    bars[2].classList.remove('-rotate-45', '-translate-y-[4px]');
+  }
+
+  toggle.addEventListener('click', () => {
+    const isOpen = !menu.classList.contains('hidden');
+    if (isOpen) {
+      closeMenu();
+    } else {
+      menu.classList.remove('hidden');
+      toggle.setAttribute('aria-expanded', 'true');
+      bars[0].classList.add('rotate-45', 'translate-y-[4px]');
+      bars[1].classList.add('opacity-0');
+      bars[2].classList.add('-rotate-45', '-translate-y-[4px]');
+    }
+  });
+
+  links.forEach(link => link.addEventListener('click', closeMenu));
+</script>
