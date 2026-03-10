@@ -1,0 +1,192 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ─── USERS ───
+
+model User {
+  id          String   @id @default(cuid())
+  email       String   @unique
+  username    String   @unique
+  displayName String?  @map("display_name")
+  avatarUrl   String?  @map("avatar_url")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  songs       Song[]
+  songbooks   Songbook[]
+  favorites   Favorite[]
+  suggestions Suggestion[]
+  following   Follow[]     @relation("follower")
+  followers   Follow[]     @relation("followed")
+
+  @@map("users")
+}
+
+// ─── SONGS ───
+
+enum SongStatus {
+  DRAFT
+  SHARED
+  PUBLISHED
+}
+
+model Song {
+  id            String     @id @default(cuid())
+  userId        String     @map("user_id")
+  title         String
+  artist        String?
+  key           String?
+  bpm           Int?
+  timeSignature String?    @map("time_signature")
+  status        SongStatus @default(DRAFT)
+  slug          String     @unique
+
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime  @updatedAt @map("updated_at")
+  publishedAt DateTime? @map("published_at")
+
+  user            User            @relation(fields: [userId], references: [id])
+  blocks          Block[]
+  favorites       Favorite[]
+  suggestions     Suggestion[]
+  songbookEntries SongbookEntry[]
+
+  @@index([userId])
+  @@index([status])
+  @@index([slug])
+  @@map("songs")
+}
+
+// ─── BLOCKS ───
+
+enum BlockType {
+  VERSE
+  CHORUS
+  BRIDGE
+  INTRO
+  OUTRO
+  SOLO
+  TAB
+  INSTRUMENTAL
+  CUSTOM
+  REPEAT
+}
+
+model Block {
+  id         String    @id @default(cuid())
+  songId     String    @map("song_id")
+  type       BlockType
+  label      String?
+  content    String
+  order      Int
+  refBlockId String?   @map("ref_block_id")
+
+  song        Song         @relation(fields: [songId], references: [id], onDelete: Cascade)
+  refBlock    Block?       @relation("BlockRepeat", fields: [refBlockId], references: [id])
+  repeatedBy  Block[]      @relation("BlockRepeat")
+  suggestions Suggestion[]
+
+  @@index([songId])
+  @@map("blocks")
+}
+
+// ─── SUGGESTIONS ───
+
+enum SuggestionStatus {
+  PENDING
+  ACCEPTED
+  REJECTED
+}
+
+model Suggestion {
+  id      String           @id @default(cuid())
+  songId  String           @map("song_id")
+  blockId String           @map("block_id")
+  userId  String           @map("user_id")
+  content String
+  comment String?
+  status  SuggestionStatus @default(PENDING)
+
+  createdAt  DateTime  @default(now()) @map("created_at")
+  resolvedAt DateTime? @map("resolved_at")
+
+  song  Song  @relation(fields: [songId], references: [id], onDelete: Cascade)
+  block Block @relation(fields: [blockId], references: [id], onDelete: Cascade)
+  user  User  @relation(fields: [userId], references: [id])
+
+  @@index([songId])
+  @@index([blockId])
+  @@map("suggestions")
+}
+
+// ─── SONGBOOKS ───
+
+model Songbook {
+  id          String  @id @default(cuid())
+  userId      String  @map("user_id")
+  name        String
+  description String?
+  isPublic    Boolean @default(false) @map("is_public")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  user    User            @relation(fields: [userId], references: [id])
+  entries SongbookEntry[]
+
+  @@index([userId])
+  @@map("songbooks")
+}
+
+model SongbookEntry {
+  id           String  @id @default(cuid())
+  songbookId   String  @map("songbook_id")
+  songId       String  @map("song_id")
+  order        Int
+  transposeKey String? @map("transpose_key")
+  notes        String?
+
+  songbook Songbook @relation(fields: [songbookId], references: [id], onDelete: Cascade)
+  song     Song     @relation(fields: [songId], references: [id], onDelete: Cascade)
+
+  @@unique([songbookId, songId])
+  @@map("songbook_entries")
+}
+
+// ─── FAVORITES ───
+
+model Favorite {
+  id     String @id @default(cuid())
+  userId String @map("user_id")
+  songId String @map("song_id")
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  song Song @relation(fields: [songId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, songId])
+  @@map("favorites")
+}
+
+// ─── FOLLOWS ───
+
+model Follow {
+  id         String @id @default(cuid())
+  followerId String @map("follower_id")
+  followedId String @map("followed_id")
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  follower User @relation("follower", fields: [followerId], references: [id], onDelete: Cascade)
+  followed User @relation("followed", fields: [followedId], references: [id], onDelete: Cascade)
+
+  @@unique([followerId, followedId])
+  @@map("follows")
+}
