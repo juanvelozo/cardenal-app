@@ -1,17 +1,23 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { useStore } from '@nanostores/react';
 import {
   $document,
   $transposeSemitones,
+  $canUndo,
+  $canRedo,
   updateMeta,
   transpose,
   resetTranspose,
+  undo,
+  redo,
 } from '../infrastructure/stores/editor-state.store';
 import { saveDraft } from '../infrastructure/persistence/local-draft.adapter';
 
 export function EditorToolbar() {
   const doc = useStore($document);
   const semitones = useStore($transposeSemitones);
+  const canUndo = useStore($canUndo);
+  const canRedo = useStore($canRedo);
   const [saveStatus, setSaveStatus] = useState<'idle' | 'saved'>('idle');
 
   const handleSave = useCallback(() => {
@@ -19,6 +25,21 @@ export function EditorToolbar() {
     setSaveStatus('saved');
     setTimeout(() => setSaveStatus('idle'), 2000);
   }, [doc]);
+
+  useEffect(() => {
+    function handleKeyDown(e: KeyboardEvent) {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'z') {
+        e.preventDefault();
+        if (e.shiftKey) {
+          redo();
+        } else {
+          undo();
+        }
+      }
+    }
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
 
   return (
     <div className="space-y-4 mb-8">
@@ -70,6 +91,26 @@ export function EditorToolbar() {
           <option value="6/8">6/8</option>
           <option value="2/4">2/4</option>
         </select>
+
+        {/* Undo/Redo */}
+        <div className="flex items-center gap-1">
+          <button
+            onClick={undo}
+            disabled={!canUndo}
+            className="px-2 py-1 text-sm border border-paper-dark/30 rounded hover:bg-paper/50 transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+            title="Deshacer (Ctrl+Z)"
+          >
+            &#8630;
+          </button>
+          <button
+            onClick={redo}
+            disabled={!canRedo}
+            className="px-2 py-1 text-sm border border-paper-dark/30 rounded hover:bg-paper/50 transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+            title="Rehacer (Ctrl+Shift+Z)"
+          >
+            &#8631;
+          </button>
+        </div>
 
         {/* Transpose controls */}
         <div className="flex items-center gap-1">
