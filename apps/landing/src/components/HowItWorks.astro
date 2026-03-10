@@ -1,0 +1,77 @@
+---
+const steps = [
+  {
+    step: '1',
+    title: 'Escribi la letra',
+    description: 'Escribi como en cualquier editor. Sin formularios, sin campos separados.',
+    example: 'Hoy puede ser un gran dia',
+  },
+  {
+    step: '2',
+    title: 'Agrega acordes inline',
+    description: 'Pone el acorde entre corchetes justo antes de la silaba. Asi de simple.',
+    example: 'Hoy puede [Am]ser un [F]gran [C]di[G]a',
+  },
+  {
+    step: '3',
+    title: 'Cardenal hace el resto',
+    description: 'Los acordes aparecen arriba de las letras, listos para tocar. Transpone con un click.',
+  },
+];
+---
+
+<section id="como-funciona" class="py-24 px-6">
+  <div class="max-w-5xl mx-auto">
+    <h2 class="font-display text-5xl sm:text-6xl font-bold text-center text-ink mb-4">
+      Como funciona
+    </h2>
+    <p class="text-center text-ink-muted mb-16 max-w-lg mx-auto">
+      Tres pasos. Sin tutoriales, sin curva de aprendizaje.
+    </p>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+      {steps.map(({ step, title, description, example }) => (
+        <div class="text-center">
+          <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-cardinal text-cream font-bold text-lg mb-4">
+            {step}
+          </span>
+          <h3 class="font-accent text-2xl text-ink mb-2">{title}</h3>
+          <p class="text-ink-light text-sm leading-relaxed mb-4">{description}</p>
+          {example && (
+            <div class="font-mono text-sm bg-paper/60 border border-paper-dark/20 rounded-lg px-4 py-3 text-ink-muted inline-block">
+              {example}
+            </div>
+          )}
+        </div>
+      ))}
+    </div>
+
+    <!-- Live preview -->
+    <div class="max-w-xl mx-auto">
+      <div class="bg-paper/60 border border-paper-dark/30 rounded-xl p-6">
+        <p class="text-xs text-ink-muted uppercase tracking-wider mb-4">Resultado</p>
+        <div class="font-mono text-base leading-loose">
+          <div class="relative inline">
+            <span>Hoy puede </span>
+          </div>
+          <div class="relative inline-block">
+            <span class="absolute -top-5 left-0 text-cardinal font-bold text-sm">Am</span>
+            <span>ser un </span>
+          </div>
+          <div class="relative inline-block">
+            <span class="absolute -top-5 left-0 text-cardinal font-bold text-sm">F</span>
+            <span>gran </span>
+          </div>
+          <div class="relative inline-block">
+            <span class="absolute -top-5 left-0 text-cardinal font-bold text-sm">C</span>
+            <span>di</span>
+          </div>
+          <div class="relative inline-block">
+            <span class="absolute -top-5 left-0 text-cardinal font-bold text-sm">G</span>
+            <span>a</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
