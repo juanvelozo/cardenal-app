@@ -50,6 +50,13 @@ export function DraftList() {
                 })}
               </p>
             </a>
+            <a
+              href={`/song/${draft.id}`}
+              className="text-xs text-ink-muted hover:text-cardinal transition-colors px-2 py-1"
+              title="Ver cancion"
+            >
+              Ver
+            </a>
             <button
               onClick={() => handleDelete(draft.id)}
               className="text-xs text-ink-muted hover:text-cardinal transition-colors px-2 py-1"

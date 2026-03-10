@@ -1,15 +1,10 @@
 ---
 import Layout from '@/layouts/Layout.astro';
+import { SongViewerContainer } from '@/modules/editor/ui/SongViewerContainer';
 
 const { slug } = Astro.params;
 ---
 
 <Layout title={`${slug} — Cardenal`}>
-  <h1 class="font-display text-5xl font-bold text-ink mb-2">{slug}</h1>
-  <p class="text-ink-muted mb-8">Vista de cancion — proximamente</p>
-
-  <div class="border border-dashed border-paper-dark rounded-xl p-12 text-center text-ink-muted">
-    <p class="font-display text-4xl text-cardinal/20 mb-4">&#9835;</p>
-    <p class="text-sm">Visualizador de cancion con acordes — proximamente</p>
-  </div>
+  <SongViewerContainer client:load draftId={slug!} />
 </Layout>
