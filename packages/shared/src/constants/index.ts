@@ -1,0 +1,24 @@
+export const PAGINATION = {
+  DEFAULT_PAGE: 1,
+  DEFAULT_LIMIT: 20,
+  MAX_LIMIT: 100,
+} as const;
+
+export const SONG_STATUS = {
+  DRAFT: 'DRAFT',
+  SHARED: 'SHARED',
+  PUBLISHED: 'PUBLISHED',
+} as const;
+
+export const BLOCK_TYPES = {
+  VERSE: 'VERSE',
+  CHORUS: 'CHORUS',
+  BRIDGE: 'BRIDGE',
+  INTRO: 'INTRO',
+  OUTRO: 'OUTRO',
+  SOLO: 'SOLO',
+  TAB: 'TAB',
+  INSTRUMENTAL: 'INSTRUMENTAL',
+  CUSTOM: 'CUSTOM',
+  REPEAT: 'REPEAT',
+} as const;
