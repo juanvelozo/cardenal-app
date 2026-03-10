@@ -1,13 +1,8 @@
 ---
 import Layout from '@/layouts/Layout.astro';
+import { EditorContainer } from '@/modules/editor/ui/EditorContainer';
 ---
 
 <Layout title="Nueva cancion — Cardenal" noindex>
-  <h1 class="font-display text-5xl font-bold text-ink mb-2">Nueva cancion</h1>
-  <p class="text-ink-muted mb-8">El editor de bloques va a estar aca.</p>
-
-  <div class="border border-dashed border-paper-dark rounded-xl p-12 text-center text-ink-muted">
-    <p class="font-display text-4xl text-cardinal/20 mb-4">&#9998;</p>
-    <p class="text-sm">Editor de bloques WYSIWYG — proximamente</p>
-  </div>
+  <EditorContainer client:load />
 </Layout>
