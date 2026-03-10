@@ -1,0 +1,15 @@
+---
+import Layout from '@/layouts/Layout.astro';
+
+const { slug } = Astro.params;
+---
+
+<Layout title={`Editar ${slug} — Cardenal`} noindex>
+  <h1 class="font-display text-5xl font-bold text-ink mb-2">Editar: {slug}</h1>
+  <p class="text-ink-muted mb-8">Editor de cancion — proximamente</p>
+
+  <div class="border border-dashed border-paper-dark rounded-xl p-12 text-center text-ink-muted">
+    <p class="font-display text-4xl text-cardinal/20 mb-4">&#9998;</p>
+    <p class="text-sm">Editor de bloques WYSIWYG — proximamente</p>
+  </div>
+</Layout>

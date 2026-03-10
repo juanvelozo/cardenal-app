@@ -1,0 +1,47 @@
+---
+import Layout from '@/layouts/Layout.astro';
+---
+
+<Layout title="Cardenal">
+  <!-- Welcome section -->
+  <section class="mb-12">
+    <h1 class="font-display text-5xl font-bold text-ink mb-2">Bienvenido a Cardenal</h1>
+    <p class="text-ink-light">Tu cancionero digital. Explora canciones o crea la tuya.</p>
+  </section>
+
+  <!-- Quick actions -->
+  <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-12">
+    <a
+      href="/song/new"
+      class="p-6 rounded-xl border border-paper-dark/30 hover:border-cardinal/30 hover:bg-paper/50 transition-all group"
+    >
+      <span class="text-2xl mb-2 block">+</span>
+      <h2 class="font-accent text-xl text-ink mb-1 group-hover:text-cardinal transition-colors">Nueva cancion</h2>
+      <p class="text-sm text-ink-muted">Crea una cancion con el editor de bloques</p>
+    </a>
+
+    <a
+      href="/explore"
+      class="p-6 rounded-xl border border-paper-dark/30 hover:border-cardinal/30 hover:bg-paper/50 transition-all group"
+    >
+      <span class="text-2xl mb-2 block">&#9835;</span>
+      <h2 class="font-accent text-xl text-ink mb-1 group-hover:text-cardinal transition-colors">Explorar</h2>
+      <p class="text-sm text-ink-muted">Descubri canciones de otros musicos</p>
+    </a>
+
+    <a
+      href="/tools/tuner"
+      class="p-6 rounded-xl border border-paper-dark/30 hover:border-cardinal/30 hover:bg-paper/50 transition-all group"
+    >
+      <span class="text-2xl mb-2 block">&#9881;</span>
+      <h2 class="font-accent text-xl text-ink mb-1 group-hover:text-cardinal transition-colors">Herramientas</h2>
+      <p class="text-sm text-ink-muted">Afinador, metronomo, acordes y mas</p>
+    </a>
+  </section>
+
+  <!-- Empty state placeholder -->
+  <section class="text-center py-16 text-ink-muted">
+    <p class="font-display text-6xl text-cardinal/20 mb-4">&#9835;</p>
+    <p class="text-sm">Todavia no hay canciones. Cuando haya contenido, van a aparecer aca.</p>
+  </section>
+</Layout>

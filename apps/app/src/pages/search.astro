@@ -1,0 +1,15 @@
+---
+import Layout from '@/layouts/Layout.astro';
+
+const query = Astro.url.searchParams.get('q') || '';
+---
+
+<Layout title={query ? `${query} — Buscar en Cardenal` : 'Buscar — Cardenal'} noindex>
+  <h1 class="font-display text-5xl font-bold text-ink mb-2">Resultados</h1>
+  {query && <p class="text-ink-muted mb-8">Buscando: <span class="text-ink font-medium">{query}</span></p>}
+
+  <div class="border border-dashed border-paper-dark rounded-xl p-12 text-center text-ink-muted">
+    <p class="font-display text-4xl text-cardinal/20 mb-4">&#128269;</p>
+    <p class="text-sm">Resultados de busqueda — proximamente</p>
+  </div>
+</Layout>

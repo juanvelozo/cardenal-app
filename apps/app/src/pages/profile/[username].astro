@@ -1,0 +1,15 @@
+---
+import Layout from '@/layouts/Layout.astro';
+
+const { username } = Astro.params;
+---
+
+<Layout title={`${username} — Cardenal`}>
+  <h1 class="font-display text-5xl font-bold text-ink mb-2">{username}</h1>
+  <p class="text-ink-muted mb-8">Perfil de usuario — proximamente</p>
+
+  <div class="border border-dashed border-paper-dark rounded-xl p-12 text-center text-ink-muted">
+    <p class="font-display text-4xl text-cardinal/20 mb-4">&#128100;</p>
+    <p class="text-sm">Canciones y cancioneros del usuario — proximamente</p>
+  </div>
+</Layout>
