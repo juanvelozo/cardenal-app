@@ -1,0 +1,10 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import { EditorContainer } from '@/modules/editor/ui/EditorContainer';
+
+const { id } = Astro.params;
+---
+
+<Layout title="Editar borrador — Cardenal" noindex>
+  <EditorContainer client:load draftId={id} />
+</Layout>

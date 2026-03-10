@@ -1,3 +1,4 @@
+import { useState, useCallback } from 'react';
 import { useStore } from '@nanostores/react';
 import {
   $document,
@@ -6,10 +7,18 @@ import {
   transpose,
   resetTranspose,
 } from '../infrastructure/stores/editor-state.store';
+import { saveDraft } from '../infrastructure/persistence/local-draft.adapter';
 
 export function EditorToolbar() {
   const doc = useStore($document);
   const semitones = useStore($transposeSemitones);
+  const [saveStatus, setSaveStatus] = useState<'idle' | 'saved'>('idle');
+
+  const handleSave = useCallback(() => {
+    saveDraft(doc);
+    setSaveStatus('saved');
+    setTimeout(() => setSaveStatus('idle'), 2000);
+  }, [doc]);
 
   return (
     <div className="space-y-4 mb-8">
@@ -31,7 +40,7 @@ export function EditorToolbar() {
         />
       </div>
 
-      {/* Song details + transpose */}
+      {/* Song details + transpose + save */}
       <div className="flex flex-wrap items-center gap-3">
         <input
           type="text"
@@ -63,7 +72,7 @@ export function EditorToolbar() {
         </select>
 
         {/* Transpose controls */}
-        <div className="flex items-center gap-1 ml-auto">
+        <div className="flex items-center gap-1">
           <button
             onClick={() => transpose(-1)}
             className="px-2 py-1 text-sm border border-paper-dark/30 rounded hover:bg-paper/50 transition-colors"
@@ -90,6 +99,14 @@ export function EditorToolbar() {
             </button>
           )}
         </div>
+
+        {/* Save button */}
+        <button
+          onClick={handleSave}
+          className="ml-auto px-4 py-1.5 text-sm font-medium bg-cardinal text-cream rounded-lg hover:bg-cardinal-dark transition-colors"
+        >
+          {saveStatus === 'saved' ? 'Guardado' : 'Guardar'}
+        </button>
       </div>
     </div>
   );

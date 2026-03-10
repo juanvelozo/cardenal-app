@@ -1,21 +1,40 @@
+import { useEffect } from 'react';
 import { useStore } from '@nanostores/react';
 import {
   $document,
   $activeBlockId,
   $transposeSemitones,
+  setDocument,
   setActiveBlock,
   updateBlockContent,
   updateBlockType,
   addBlockAfter,
   removeBlock,
 } from '../infrastructure/stores/editor-state.store';
+import { createDocument } from '../domain/entities/editor-document.entity';
+import { loadDraft } from '../infrastructure/persistence/local-draft.adapter';
 import { EditorToolbar } from './EditorToolbar';
 import { BlockItem } from './BlockItem';
 
-export function EditorContainer() {
+interface EditorContainerProps {
+  draftId?: string;
+}
+
+export function EditorContainer({ draftId }: EditorContainerProps) {
   const doc = useStore($document);
   const activeBlockId = useStore($activeBlockId);
   const transposeSemitones = useStore($transposeSemitones);
+
+  useEffect(() => {
+    if (draftId) {
+      const draft = loadDraft(draftId);
+      if (draft) {
+        setDocument(draft.document);
+        return;
+      }
+    }
+    setDocument(createDocument());
+  }, [draftId]);
 
   return (
     <div>

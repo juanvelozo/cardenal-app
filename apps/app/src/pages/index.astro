@@ -1,5 +1,6 @@
 ---
 import Layout from '@/layouts/Layout.astro';
+import { DraftList } from '@/modules/editor/ui/DraftList';
 ---
 
 <Layout title="Cardenal">
@@ -39,9 +40,8 @@ import Layout from '@/layouts/Layout.astro';
     </a>
   </section>
 
-  <!-- Empty state placeholder -->
-  <section class="text-center py-16 text-ink-muted">
-    <p class="font-display text-6xl text-cardinal/20 mb-4">&#9835;</p>
-    <p class="text-sm">Todavia no hay canciones. Cuando haya contenido, van a aparecer aca.</p>
+  <!-- Drafts -->
+  <section>
+    <DraftList client:load />
   </section>
 </Layout>
