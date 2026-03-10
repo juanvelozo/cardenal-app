@@ -11,3 +11,4 @@ output_folder: "{project-root}/_bmad-output"
 # Project rules
 rules:
   - Hacer un commit por cada funcionalidad. Si hay varias funcionalidades dentro de un mismo archivo, hacer varios commits separados, uno por funcionalidad.
+  - "Estrategia de ramas: rama por proyecto (app, landing), rama por módulo (app/editor, app/shell), rama por funcionalidad (app/editor/chord-parser). Merge: funcionalidad → módulo → proyecto → develop. Solo mergear cuando el nivel inferior esté completo."
